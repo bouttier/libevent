@@ -1277,7 +1277,7 @@ evbuffer_remove_buffer(struct evbuffer *src, struct evbuffer *dst,
 	}
 
 	/* short-cut if there is no more data buffered */
-	if (datlen >= src->total_len) {
+	if (datlen < 0 || datlen >= src->total_len) {
 		datlen = src->total_len;
 		evbuffer_add_buffer(dst, src);
 		result = (int)datlen; /*XXXX should return ev_ssize_t*/
